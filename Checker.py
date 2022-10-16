@@ -1,3 +1,4 @@
+#ask the user if they have played before or not
 def yes_no(question):
    valid = False
    while not valid:
@@ -12,17 +13,27 @@ def yes_no(question):
            return response
        else:
            print("Please enter Yes or No: ")
-
+#will display instructions depending on yes_no checker
 def instructions():
-   print("*** Quiz of Minecraft ***\n")
-   print("""Welcome to The Minecarft, the cost is $1 per round to
-play.
-If you get a Unicorn you win $5.
-If you receive a Horse or Zebra you win 50c.
-A Donkey gets you nothing.
-Good Luck!\n""")
+   print("***************************")
+   print("        How to Play")
+   print("***************************\n")
+   print("""Welcome to the Multiplication Quiz!
+   
+   
+Here we will test your knowledge of this wonderful game
+Are you good with numbers? Lets hope so!
+\n""")
    return ""
 
+print("Welcome to my Number Quiz!")
+print()
+played_before = yes_no("Have you played the game before? ")
+
+if played_before == "no":
+   instructions()
+
+#will check the users answer for the question
 def num_check(question):
    error = "Please enter a whole number between 1 and 10"
    valid = False
@@ -38,11 +49,3 @@ def num_check(question):
                return response
        except ValueError:
                print(error)
-
-
-print("Welcome to the Lucky Unicorn Game!")
-print()
-played_before = yes_no ("Have you played the game before? ")
-
-if played_before == "no":
-   instructions()
