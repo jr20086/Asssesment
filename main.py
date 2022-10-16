@@ -1,52 +1,108 @@
-#ask the user if they have played before or not
-def yes_no(question):
-   valid = False
-   while not valid:
+import random
 
-       response = input(question).lower()
+# This will display the introduction
+def display_intro():
+    title = "** Welcome to my Number Quiz! **"
+    print("*" * len(title))
+    print(title)
+    print("*" * len(title))
 
-       if response == "yes" or response == "y":
-           response = "yes"
-           return response
-       elif response == "no" or response =="n":
-           response = "no"
-           return response
-       else:
-           print("Please enter Yes or No: ")
-#will display instructions depending on yes_no checker
-def instructions():
-   print("***************************")
-   print("        How to Play")
-   print("***************************\n")
-   print("""Welcome to the Math Quiz!
-   
-   
-Here we will test your knowledge of this wonderful game
-Are you good with numbers? Lets hope so!
-\n""")
-   return ""
+# This displays the math topics
+def display_menu():
+    menu_list = ["1. Addition", "2. Subtraction", "3. Multiplication", "4. Integer Division", "5. Exit"]
+    print(menu_list[0])
+    print(menu_list[1])
+    print(menu_list[2])
+    print(menu_list[3])
+    print(menu_list[4])
 
-print("Welcome to my Number Quiz!")
-print()
-played_before = yes_no("Have you played the game before? ")
 
-if played_before == "no":
-   instructions()
+def display_separator():
+    print("-" * 24)
 
-#will check the users answer for the question
-def num_check(question):
-   error = "Please enter a whole number between 1 and 10"
-   valid = False
-   while not valid:
-       try:
-           response = int(input(question))
+# This will determine the users answer on the menu
+def get_user_input():
+    user_input = int(input("Enter your choice: "))
+    while user_input > 5 or user_input <= 0:
+        print("Invalid menu option.")
+        user_input = int(input("Please try again: "))
+    else:
+        return user_input
 
-           if response <= 0 or response > 10:
-               print(error)
-           else:
-               print(f"You are playing with ${response}")
-               valid = True
-               return response
-       except ValueError:
-               print(error)
+
+# This part will ask the user for his response on the question asked
+def get_user_solution(problem):
+    print("Enter your answer")
+    print(problem, end="")
+    result = int(input(" = "))
+    return result
+
+# This will check if the user got the answer correct or not
+def check_solution(user_solution, solution, count):
+    if user_solution == solution:
+        count = count + 1
+        print("Correct.")
+        return count
+    else:
+        print("Incorrect.")
+        return count
+
+# This is the part of the code that defines the menu options
+def menu_option(index, count):
+    number_one = random.randrange(1, 21)
+    number_two = random.randrange(1, 21)
+    if index == 1:
+        problem = str(number_one) + " + " + str(number_two)
+        solution = number_one + number_two
+        user_solution = get_user_solution(problem)
+        count = check_solution(user_solution, solution, count)
+        return count
+    elif index == 2:
+        problem = str(number_one) + " - " + str(number_two)
+        solution = number_one - number_two
+        user_solution = get_user_solution(problem)
+        count = check_solution(user_solution, solution, count)
+        return count
+    elif index == 3:
+        problem = str(number_one) + " * " + str(number_two)
+        solution = number_one * number_two
+        user_solution = get_user_solution(problem)
+        count = check_solution(user_solution, solution, count)
+        return count
+    else:
+        problem = str(number_one) + " // " + str(number_two)
+        solution = number_one // number_two
+        user_solution = get_user_solution(problem)
+        count = check_solution(user_solution, solution, count)
+        return count
+
+
+def display_result(total, correct):
+    if total > 0:
+        result = correct / total
+        percentage = round((result * 100), 2)
+    if total == 0:
+        percentage = 0
+    print("You answered", total, "questions with", correct, "correct.")
+    print("Your score is ", percentage, "%. Thank you.", sep = "")
+
+# These are the main routines for the quiz
+def main():
+    display_intro()
+    display_menu()
+    display_separator()
+
+    option = get_user_input()
+    total = 0
+    correct = 0
+    while option != 5:
+        total = total + 1
+        correct = menu_option(option, correct)
+        option = get_user_input()
+
+    print("Exit the quiz.")
+    display_separator()
+    display_result(total, correct)
+
+main()
 
