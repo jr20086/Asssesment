@@ -9,7 +9,7 @@ def display_intro():
 
 # This displays the math topics
 def display_menu():
-    menu_list = ["1. Addition", "2. Subtraction", "3. Multiplication", "4. Integer Division", "5. Exit"]
+    menu_list = ["1. Addition", "2. Subtraction", "3. Multiplication", "4. Integer Division", "5. Abort"]
     print(menu_list[0])
     print(menu_list[1])
     print(menu_list[2])
@@ -76,7 +76,7 @@ def menu_option(index, count):
         count = check_solution(user_solution, solution, count)
         return count
 
-
+#This prints the total amount of question the user has gotten incorrect or correct
 def display_result(total, correct):
     if total > 0:
         result = correct / total
@@ -105,4 +105,3 @@ def main():
     display_result(total, correct)
 
 main()
-
